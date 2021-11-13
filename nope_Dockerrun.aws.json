@@ -1,0 +1,126 @@
+{
+    "containerDefinitions": [
+        {
+            "command": [
+                "mongod",
+                "--smallfiles",
+                "--logpath=/dev/null"
+            ],
+            "environment": [
+                {
+                    "name": "MONGO_DATA_DIR",
+                    "value": "/data/db"
+                },
+                {
+                    "name": "MONGO_LOG_DIR",
+                    "value": "/dev/null"
+                }
+            ],
+            "essential": true,
+            "image": "mongo:4.0",
+            "mountPoints": [
+                {
+                    "containerPath": "/data/db",
+                    "sourceVolume": "Mongodb_Data"
+                }
+            ],
+            "name": "database",
+            "memory": 128
+        },
+        {
+            "environment": [
+                {
+                    "name": "RABBITMQ_DEFAULT_USER",
+                    "value": "user"
+                },
+                {
+                    "name": "RABBITMQ_DEFAULT_PASS",
+                    "value": "password"
+                }
+            ],
+            "essential": true,
+            "image": "rabbitmq:3",
+            "name": "messageq",
+            "memory": 128
+        },
+        {
+            "environment": [
+                {
+                    "name": "SECRET_KEY",
+                    "value": "RandomSecretKeyHere"
+                },
+                {
+                    "name": "FILE_WATCHER",
+                    "value": "true"
+                }
+            ],
+            "essential": true,
+            "image": "jsbroks/coco-annotator:webserver-stable",
+            "mountPoints": [
+                {
+                    "containerPath": "/datasets",
+                    "sourceVolume": "_Datasets"
+                },
+                {
+                    "containerPath": "/models",
+                    "sourceVolume": "_Models"
+                },
+                {
+                    "sourceVolume": "app",
+                    "containerPath": "/var/www/html",
+                    "readOnly": true
+                }
+            ],
+            "name": "webserver",
+            "portMappings": [
+                {
+                    "containerPort": 5000,
+                    "hostPort": 80
+                }
+            ],
+            "memory": 128,
+            "links": ["database", "workers"]
+        },
+        {
+            "essential": true,
+            "image": "jsbroks/coco-annotator:workers-stable",
+            "mountPoints": [
+                {
+                    "containerPath": "/datasets",
+                    "sourceVolume": "_Datasets"
+                }
+            ],
+            "name": "workers",
+            "memory": 128,
+            "links": ["messageq", "database"]
+        }
+    ],
+    "family": "",
+    "volumes": [
+        {
+            "host": {
+                "sourcePath": "/datasets"
+            },
+            "name": "_Datasets"
+        },
+        {
+            "host": {
+                "sourcePath": "/models"
+            },
+            "name": "_Models"
+        },
+        {
+            "host": {
+                "sourcePath": "mongodb_data"
+            },
+            "name": "Mongodb_Data"
+        },
+        {
+            "name": "app",
+            "host": {
+              "sourcePath": "/var/app/current/app"
+            }
+        }
+    ],
+    "AWSEBDockerrunVersion": 2
+}

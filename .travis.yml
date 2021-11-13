@@ -1,0 +1,43 @@
+matrix:
+  include:
+    - language: python
+      python:
+        - 3.6
+      services:
+        - docker
+      cache: pip
+      env:
+        - MONGODB_HOST=mongodb://localhost/test
+        - DATASET_DIRECTORY=datasets/
+        - TESTING=true
+        - LOGIN_DISABLED=true
+      before_script:
+        - pip install -r backend/requirements.txt
+        - pip install pycocotools
+        - docker run -d -p 27017:27017 mongo
+        - docker ps -a
+      script: pytest
+#    - language: node_js
+#      node_js:
+#        - 8
+#        - node
+#      cache: npm
+#      before_install:
+#        - npm install -g npm@latest
+#        - cd client
+#      install:
+#        - npm i
+#      script: npm test
+
+# deploy:
+#   - provider: elasticbeanstalk
+#     access_key_id:
+#       secure: "k/+FUYwPATH9x1vS82fj1buq6/nBg5fviNCPVxn+Vatkh+On44T1WsGwi9svfC+0VUP88kd2lSbe23Sz6H9JglmufyvP3j9/eneHY1rlUd62rnzCybmFhQ2rAvtHG1h8WxCmcU6knYQreK0uK3iR/+rNTSb7Q4QMEQh0gFbx1plaLX6jdhC7ubBiOoOMItLDW5LrsLQ7GpqMSObKRrRg+j52AQHxcdGWKwqJ/BpIqckCftnXxVtOpLDKRWbymZjUyyyhUm+3IuiNl6deAghcmi9S7/mm5ZpMVvk9l5kbaLmio2pkvn6k6g5BWgJKdyw2j9FM56PKCrXe1AvGARjA4MnIeA8LsdIjUgy9oSd9mP0TRXXWsdTTKPd8Y2lEKGmwqTfvm3KmyVNtC31bnDVnOUHBJc9kEMfePegLw+LPH5Giq2GvGVrZlgO5Qa2KoJ8ypmpIb2Gs+6KX4zq4Lm+1ojrKzIvRHyJTgktqiyWYnY77V3T9TouOv3AuDkz4sH51ngieRGHs96KxSUFyhrZO6ivwzL6oPgmEIydfg6F5UN3XS3ziVbRSrN9N4Md4ADRS+pjpAucG6giWOLtukK0vwsMbxmd4VXhEBGrmfIpEWb0LJAAFKtMk7yxM5aZGCLzCsCUWAUncSlVkcFhVCdcbjzwv/UnlGZS5lIbwEEX4fcM="
+#     secret_access_key:
+#       secure: "nXIKqyXqKggNS6D0pUYjXFIIhzT/M+ENCXQfqWiwk0Vqfby+d01mwRSNvisevkcrG+yIjuhKAQFMDRHlj+EoXW1xx6qfnpV7D8hFuyy2s0Z/WDA0mSEGbHYNz5fMOZJP+9xSWLaWtA+V2IcN6eWm1dxPB6Vdlxicc40DgENxpiXH7cKmjHW7qj2SGeUmw1IIdKCFcm3q8RCyWEhSFkYhCp/LAjaue+iXwdNKrZqgBcYCJ9V5kSkHrGORuqmjvtxXK9d6hywRNzszRiFeg5g1uaqsG++J06vFm1Kx+AGHu2JSDcdAITUj3UQByx00Aiqc7x9pnopxV3ghefuTOn8biiiL/cKe2hS1waXKinLoD8V3avgB26vrUJAlfiQpboHNp1xiIvzPNM+2SirBsXTlV0/TOoxknxeQyGR6BW/drtL6fpZj0vYsAN7rHV6IP83yWplYn8DarCnh7kBXSr0To94sy6N2Y0SHoHYn41s8uN9TFohmZ5V/O/rtDo9mXagrZrZDbUCTOYB5cqwdEDmQYESoIkqB2uRz8Lrka6+gfG2DAMbtNh6ZnNLXHUMcRutWjFLs34j5QcjRhRDFHF14AuFrswT9W8UlTse15tetysBSiSlS6RyyC+zonZhDSKGqy3OlZLAEa5VU7lGSW4OCkqoGaRg9GBGSQ3ob4sFLzOg=" 
+#     region: "us-west-2"
+#     app: "coco-anno-dev-19"
+#     env: "Cocoannodev19-env"
+#     bucket_name: "coco-annotator-rune"
+
+

@@ -1,0 +1,22 @@
+.pytest_cache/*
+.cache/*
+.idea/*
+datasets/*
+
+!datasets/.gitkeep
+.history/*
+.vscode/*
+__pycache__
+dist/*
+!dist/.gitkeep
+
+docs/.vuepress/dist/*
+models/*.h5
+#!models/mask_rcnn_ade20k_0080.h5
+#!models/mask_rcnn_coco.h5
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+.env

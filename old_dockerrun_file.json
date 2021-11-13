@@ -1,0 +1,96 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "volumes": [
+        {
+            "name": "datasets",
+            "host": {
+                "sourcePath": "./datasets:/datasets"
+            }
+        },
+        {
+            "name": "models",
+            "host": {
+                "sourcePath": "./models:/models"
+            }
+        },
+        {
+            "name": "mongodb",
+            "host": {
+                "sourcePath": "mongodb_data:/data/db"
+            }
+        }
+    ],
+    "containerDefinitions": [
+        {
+            "name": "annotator_webclient",
+            "image": "jsbroks/coco-annotator:webserver-stable",
+            "esstential": true,
+            "portMappings": [
+                {
+                    "hostPort": 5000,
+                    "containerPort": 5000
+                }
+            ],
+            "links": ["database", "workers"],
+            "memory": 128,
+            "mountPoints": [
+                {
+                    "sourceVolume": "datasets",
+                    "containerPath": "etc/datasets"
+                },
+                {
+                    "sourceVolume": "models",
+                    "containerPath": "etc/models"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "SECRET_KEY",
+                    "value": "RandomSecretKeyHere"
+                },
+                {
+                    "name": "FILE_WATCHER",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "name": "workers",
+            "image": "jsbroks/coco-annotator:workers-stable",
+            "esstential": false,
+            "links": ["messageq", "database"],
+            "memory": 128,
+            "mountPoints": [
+                {
+                    "sourceVolume": "datasets"
+                }
+            ]
+        },
+        {
+            "name": "messageq",
+            "image": "rabbitmq:3",
+            "memory": 128,
+            "environment": [
+                {
+                    "name": "RABBITMQ_DEFAULT_USER",
+                    "value": "user"
+                },
+                {
+                    "name": "RABBITMQ_DEFAULT_PASS",
+                    "value": "password"
+                }
+            ]
+        },
+        {
+            "name": "database",
+            "image": "mongo:4.0",
+            "memory": 128,
+            "mountPoints": [
+                {
+                    "sourceVolume": "mongodb",
+                    "containerPath": "var/log/mongo"
+                }
+            ]
+        }
+    ]
+}
