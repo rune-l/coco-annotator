@@ -21,7 +21,8 @@ services:
       - SECRET_KEY=RandomSecretKeyHere
       - FILE_WATCHER=true
       - NAME=Test Annotator
-      - MASK_FORMER_FILE=/models/ade20k-150/maskformer_R50_bs16_160k.yaml
+      - MASK_FORMER_FILE=/models/ade20k-150/maskformer_swin_large_IN21k_384_bs16_160k_res640.yaml
+      - MASK_FORMER_WEIGHTS=https://dl.fbaipublicfiles.com/maskformer/semantic-ade20k/maskformer_swin_large_IN21k_384_bs16_160k_res640/model_final_aefa3b.pkl
     volumes:
       - "./datasets:/datasets"
       - "./models:/models"
