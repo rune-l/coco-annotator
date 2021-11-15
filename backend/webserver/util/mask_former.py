@@ -30,7 +30,7 @@ def get_config():
     add_mask_former_config(cfg)
     cfg.merge_from_file(COCO_MODEL_PATH)
 
-    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.9
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.75
 
     cfg.MODEL.WEIGHTS = "https://dl.fbaipublicfiles.com/maskformer/semantic-ade20k/maskformer_R50_bs16_160k/model_final_d8dbeb.pkl"
 
