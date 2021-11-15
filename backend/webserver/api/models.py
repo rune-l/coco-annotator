@@ -30,7 +30,7 @@ api = Namespace('model', description='Model related operations')
 MASKFORMER_LOADED = os.path.isfile(Config.MASK_FORMER_FILE)
 if MASKFORMER_LOADED:
     from ..util.mask_former import model as maskformer
-    logger.info("MaskFormer model is enabled.")
+    logger.info("MaskFormer model is enabled. Using model {}".format(Config.MASK_FORMER_FILE))
 else:
     logger.warning("MaskRCNN model is disabled.")
 
