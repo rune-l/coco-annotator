@@ -20,6 +20,7 @@ from MaskFormer.mask_former.mask_former_model import MaskFormer
 
 MODEL_DIR = "/workspace/models"
 COCO_MODEL_PATH = AnnotatorConfig.MASK_FORMER_FILE
+COCO_MODEL_WEIGHTS = AnnotatorConfig.MASK_FORMER_WEIGHTS
 
 def get_config():
     """
@@ -32,7 +33,7 @@ def get_config():
 
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.75
 
-    cfg.MODEL.WEIGHTS = "https://dl.fbaipublicfiles.com/maskformer/semantic-ade20k/maskformer_R50_bs16_160k/model_final_d8dbeb.pkl"
+    cfg.MODEL.WEIGHTS = COCO_MODEL_WEIGHTS
 
     cfg.MODEL.DEVICE='cpu'
 

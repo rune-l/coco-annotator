@@ -85,6 +85,7 @@ class Config:
     DEXTR_FILE = os.getenv("DEXTR_FILE", "/models/dextr_pascal-sbd.h5")
 
     MASK_FORMER_FILE = os.getenv("MASK_FORMER_FILE", "/models/ade20k-150/maskformer_R50_bs16_160k.yaml")
+    MASK_FORMER_WEIGHTS = os.getenv("MASK_FORMER_WEIGHTS", "https://dl.fbaipublicfiles.com/maskformer/semantic-ade20k/maskformer_R50_bs16_160k/model_final_d8dbeb.pkl")
 
     MASK_COCO_FILE = os.getenv("MASK_COCO_FILE", "/models/mask_rcnn_coco.h5")
     MASK_COCO_CLASSES = os.getenv("MASK_COCO_CLASSES", "BG,person,bicycle,car,motorcycle,airplane,bus,train,truck,boat,traffic light,fire hydrant,stop sign,parking meter,bench,bird,cat,dog,horse,sheep,cow,elephant,bear,zebra,giraffe,backpack,umbrella,handbag,tie,suitcase,frisbee,skis,snowboard,sports ball,kite,baseball bat,baseball glove,skateboard,surfboard,tennis racket,bottle,wine glass,cup,fork,knife,spoon,bowl,banana,apple,sandwich,orange,broccoli,carrot,hot dog,pizza,donut,cake,chair,couch,potted plant,bed,dining table,toilet,tv,laptop,mouse,remote,keyboard,cell phone,microwave,oven,toaster,sink,refrigerator,book,clock,vase,scissors,teddy bear,hair drier,toothbrush")
