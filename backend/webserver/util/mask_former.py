@@ -35,7 +35,7 @@ def get_config():
 
     cfg.MODEL.WEIGHTS = COCO_MODEL_WEIGHTS
 
-    #cfg.MODEL.DEVICE='cpu'
+    cfg.MODEL.DEVICE='cpu'
 
     cfg.freeze()
 
